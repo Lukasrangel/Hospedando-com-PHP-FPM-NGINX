@@ -79,56 +79,60 @@ www-data
 
 
 reinicie o serviço fpm:
+<code>
 systemctl restart php8.4-fpm
-
+</code>
 
 verifique se o pool com o nome do seu site/projeto está rodando com
-systemctl status php8.4-fpm
 
+<code>
+systemctl status php8.4-fpm
+</code>
 
 o nome do seu pool deve aparecer nos processos do status de serviço
 
 
 agora vamos trazer o projeto para a máquina, vá para
 
+<code>
 cd /var/www
-
+</code>
 dê um git para trazer o projeto para o server
 
 git clone https://github.com/eu/meu-projeto.git/
 
 dê as permissões
 
+<code>
 chown -R www:data:www-data meu-projeto/
 chmod 776 meu-projeto/
-
+</code>
 
 no meu caso de ser um projeto feito em php que precisa do composer para seu autoload:
 
+<code>
 composer install
 composer dump-autoload -o
-
+</code>
 
 
 
 php-fpm rodando, projeto no server, hora de instalar o nginx
 
-
+<code>
 apt install nginx
-
+</code>
 
 
 a escolha do ngnix foi por dois motivos, ele é leve e rápido, facilmente você consegue gerenciar para que ele redirecione 
 a requisição web para outros serviços como php-fpm e ou guinicorn para django de acordo com o domínio requisitado.
 
 
-apt install nginx
-
-
 o diretório de configuração do nginx é:
 
+<code>
 cd /etc/nginx
-
+</code>
 
 aqui vamos nos atentar em dois diretórios:
 sites-enabled
@@ -144,7 +148,7 @@ cujos domínios estem com o link aqui.
 
 vamos criar o sites-available/meu-projeto.conf
 
-
+<code>
 server {
          listen       80;   // porta a escutar
          server_name  meu-projeto.com; // nome do domínio, url http://meu-projeto.com
@@ -166,16 +170,22 @@ server {
             include fastcgi.conf;
     }
 }
+</code>
+
 
 reinicie seu nginx
 
+<code>
 systemctl restart nginx
-
+</code>
 
 a partir de agora você poderá acessar seu site pelo navegador, mas somente usando o nome do domínio configurado
 teste com curl
 
+<code>
 curl -H "Host: meu-projeto.com" http://127.0.0.1/
+</code>
+
 
 ou modifique o arquivo hosts para associar o dominio ao ip.
 
