@@ -23,8 +23,9 @@ execuções muito requisitadas de código php, é a forma mais otimizada atualme
 Primeiramente vamos instalar o php-fmp e o php, também o composer, gerenciador de dependencias do php o qual será necessário 
 para a hospedagem do projeto.
 
+<code>
 apt install php8.4 php-curl php8.4-fpm composer
-
+</code>
 
 com php-fpm instalado você pode verificar se está rodando:
 
