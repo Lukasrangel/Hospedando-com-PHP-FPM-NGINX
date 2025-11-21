@@ -29,22 +29,24 @@ apt install php8.4 php-curl php8.4-fpm composer
 
 com php-fpm instalado você pode verificar se está rodando:
 
+<code>  
 systemctl status php8.4-fpm
-
-
+</code>
 
 o fpm possui pools, que são como processos diferentes que gerenciam cada projeto, existe um pool default para todos, mas
 é uma boa prática criar o seu próprio e para cada projeto.
 
 O diretório de configuração é:
 
+<code>
 /etc/php/8.4/fpm/pool.d
-
+</code>
 
 você pode dar uma olhada no www.conf, pool padrão do fpm para ter uma ideia, aqui está a minha configuração:
 
 para criar uma: 
 
+<code>
 nano projeto_pool.conf
 
 
@@ -62,14 +64,17 @@ pm.start_servers = 10
 pm.min_spare_servers = 5
 pm.max_spare_servers = 20
 pm.process_idle_timeout = 10s
+</code>
 
 
 
-[ projeto_site ] é o nome do pool
-user e group é o usuário responsável pelo processo/pool
-listen é a conexão da máquina para o processo, pode ser conexão unix com sock, ou com portas locais como 127.0.0.1:9000
-listen.owner e group é o user responsável por escutar e executar os scripts, por padrão em servidores web linux, o usuario
-www-data
+
+[ projeto_site ] é o nome do pool <br />
+user e group é o usuário responsável pelo processo/pool <br />
+listen é a conexão da máquina para o processo, pode ser conexão unix com sock, ou com portas locais como 127.0.0.1:9000 <br />
+listen.owner e group é o user responsável por escutar e executar os scripts, por padrão em servidores web linux, o usuario <br />
+www-data 
+</code>
 
 
 
